@@ -1,0 +1,113 @@
+<div class="modal-header">
+  <h4 class="modal-title">Create Pin</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <div class="container mt-4">
+    <form [formGroup]="form">
+      <div class="mb-3">
+        <label for="pinTitle" class="form-label">Title*</label>
+        <input
+          type="text"
+          class="form-control"
+          id="pinTitle"
+          placeholder="Enter title"
+          formControlName="title"
+        />
+        @if (form.get('title')?.invalid && form.get('title')?.dirty) {
+        <small> Title is required </small>
+        }
+      </div>
+      <div class="mb-3 d-flex justify-content-center align-items-start">
+        @if (!file) {
+        <label
+          for="pinImage"
+          class="form-label"
+          ng2FileDrop
+          [uploader]="uploader"
+          (fileOver)="fileOverBase($event)"
+          (onFileDrop)="onFileSelected($event)"
+          [ngClass]="{ 'file-over': hasBaseDropZone }"
+          class="upload-drop-zone"
+          >Select Image*</label
+        >
+        <input
+          type="file"
+          id="pinImage"
+          ng2FileSelect
+          [uploader]="uploader"
+          (onFileSelected)="onFileSelected($event)"
+          style="display: none"
+        />
+        }@else{
+        <img [src]="file" alt="img" class="image-preview" />
+        <button type="button" class="btn btn-danger" (click)="removeFile()">
+          X
+        </button>
+        } @if (form.get('file')?.invalid && form.get('file')?.dirty) {
+        <small> File is required </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="pinCollaborators" class="form-label"
+          >Select Collaborators*</label
+        >
+        <ngx-select
+          [items]="customers"
+          formControlName="collaborators"
+          [multiple]="true"
+        ></ngx-select>
+        @if (form.get('collaborators')?.invalid &&
+        form.get('collaborators')?.dirty) {
+        <small> Collaborators is required </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Privacy*</label>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="privacy"
+            id="private"
+            value="private"
+            formControlName="privacy"
+            checked
+          />
+          <label class="form-check-label" for="private">Private</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="privacy"
+            id="public"
+            value="public"
+            formControlName="privacy"
+          />
+          <label class="form-check-label" for="public">Public</label>
+        </div>
+        @if (form.get('privacy')?.invalid && form.get('privacy')?.dirty) {
+        <small>Privacy is required </small>
+        }
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="savePin()">
+    Save
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    (click)="activeModal.close('Close click')"
+  >
+    Close
+  </button>
+</div>

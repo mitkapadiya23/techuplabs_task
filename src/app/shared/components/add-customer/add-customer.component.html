@@ -1,0 +1,75 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Customer</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <div class="container mt-4">
+    <form [formGroup]="form">
+      <div class="mb-3">
+        <label for="customerTitle" class="form-label">Title*</label>
+        <input
+          type="text"
+          class="form-control"
+          id="customerTitle"
+          formControlName="title"
+          placeholder="Enter title"
+        />
+        @if (form.get('title')?.invalid && form.get('title')?.dirty) {
+        <small> Title is required </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="customerEmail" class="form-label">Email*</label>
+        <input
+          type="email"
+          class="form-control"
+          id="customerEmail"
+          formControlName="email"
+          placeholder="Enter email"
+        />
+        @if (form.get('email')?.invalid && form.get('email')?.dirty &&
+        form.get('email')?.hasError('required')) {
+        <small> Email is required </small>
+        }@else if(form.get('email')?.invalid && form.get('email')?.dirty &&
+        form.get('email')?.hasError('email')){
+        <small> Please enter valid email </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="customerRegion" class="form-label">Region*</label>
+        <ngx-select
+          [items]="regions"
+          formControlName="region"
+          (select)="onRegionSelected($event)"
+        ></ngx-select>
+        @if (form.get('region')?.invalid && form.get('region')?.dirty) {
+        <small> Region is required </small>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="customerCountry" class="form-label">Country*</label>
+        <ngx-select [items]="countries" formControlName="country"></ngx-select>
+        @if (form.get('country')?.invalid && form.get('country')?.dirty) {
+        <small> Country is required </small>
+        }
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="saveCustomer()">
+    Save
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    (click)="activeModal.close('Close click')"
+  >
+    Close
+  </button>
+</div>

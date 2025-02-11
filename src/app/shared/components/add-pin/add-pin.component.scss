@@ -1,0 +1,21 @@
+.upload-drop-zone {
+    border: dotted 3px lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+}
+
+.file-over {
+    border: dotted 3px red;
+}
+
+.image-preview {
+    height: 150px;
+    width: 150px;
+}
+
+small {
+    color: red;
+}

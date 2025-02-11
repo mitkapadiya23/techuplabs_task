@@ -1,0 +1,41 @@
+<div
+  class="h-100 d-flex justify-content-center align-items-center flex-column flex-end"
+>
+  <div class="d-flex flex-column offset-md-5">
+    <button type="button" class="btn btn-light" (click)="addCustomer()">
+      Add Customer
+    </button>
+    <button type="button" class="btn btn-light" (click)="addPin()">
+      Add Pin
+    </button>
+  </div>
+  <table class="table table-striped w-50 text-center">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Image</th>
+        <th scope="col">Collaborators</th>
+        <th scope="col">Privacy</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (pin of pins; track pin.name; let i = $index) {
+      <tr>
+        <td scope="row">{{ pin.title }}</td>
+        <td>
+          @if (pin.file) {
+          <img
+            [src]="pin.file"
+            alt="image"
+            class="me-2"
+            style="width: 50px; height: 50px"
+          />
+          }@else {-}
+        </td>
+        <td>{{ pin.collaborators }}</td>
+        <td>{{ pin.privacy }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
